@@ -317,25 +317,6 @@
           <iframe class="email-frame" id="partnerEmailPreview" name="partnerEmailPreview" src="email-previews/01-welcome.html?theme=partner" title="Обезличенный макет письма: Welcome / полис" loading="lazy"></iframe>
         </div>
       </div>
-      <div class="partner-note" aria-label="Что меняется для партнёра"><span><strong>Логотип</strong><br>Добавляется только при наличии готового брендинга партнёра.</span><span><strong>Цвета</strong><br>Меняются через единый набор CSS-переменных без перевёрстки письма.</span><span><strong>Юридический блок</strong><br>В примере указаны реквизиты ИНСАП; для другого отправителя их можно заменить только на проверенные данные.</span></div>
-    </section>
-
-    <section aria-labelledby="references-title">
-      <h2 id="references-title">Что взяли из реальных писем</h2>
-      <div class="reference-note">
-        <article><h3>Сравни: продление</h3><p>В первом экране сразу показаны автомобиль, госномер и дата окончания. Это сокращает объяснение и делает письмо персональным.</p></article>
-        <article><h3>Сравни: оплата и отказ страховой</h3><p>Полезен запасной маршрут, но тема обязана совпадать с фактическим статусом. «Вам одобрили» нельзя писать, если выбранная страховая не ответила.</p></article>
-      </div>
-    </section>
-
-    <section class="decisions" aria-labelledby="decisions-title">
-      <h2 id="decisions-title">Что уже зафиксировано в INS‑3873</h2>
-      <ol class="decision-list">
-        <li><span class="decision-number">1</span><span><strong>Включение на уровне API‑ключа</strong>Общий переключатель «Коммуникации 360» и пять отдельных переключателей сценариев. При выключенной программе текущая логика отправок не меняется.</span></li>
-        <li><span class="decision-number">2</span><span><strong>Согласия</strong>Сервисные письма не требуют маркетингового согласия. Мини‑КАСКО, пролонгация и рекламный блок внутри Welcome отправляются только при <code>InsappMarketingAgreement = true</code>.</span></li>
-        <li><span class="decision-number">3</span><span><strong>Приоритеты и защита от дублей</strong>Ссылка на оплату останавливает корзину, оплата прекращает обе цепочки, а каждая волна отправляется не более одного раза для одной заявки или полиса.</span></li>
-        <li><span class="decision-number">4</span><span><strong>Оформление и данные</strong>Используются существующие HTML‑шаблоны, настройки логотипа, цвета и отправителя. Тексты макетов рабочие; цены, страховщики, даты и URL всегда берутся из актуальной заявки перед отправкой.</span></li>
-      </ol>
     </section>
 
     <section aria-labelledby="evidence-title">
