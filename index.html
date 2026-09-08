@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Сверка вариантов email-коммуникаций ОСАГО с требованиями задачи INS-3873.">
+  <title>Email-коммуникации ОСАГО · сверка с INS-3873</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #10233e;
+      --muted: #5e6f86;
+      --blue: #1463ff;
+      --blue-dark: #084dcc;
+      --blue-soft: #eaf2ff;
+      --green: #12895c;
+      --green-soft: #e8f7f1;
+      --line: #dbe3ee;
+      --surface: #f7f9fc;
+      --white: #fff;
+      --shadow: 0 18px 45px rgba(16, 35, 62, .08);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--ink);
+      font: 16px/1.55 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { font: inherit; }
+    .topbar { border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); }
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .brand { display: flex; align-items: center; }
+    .brand-logo { display: block; width: 116px; height: auto; }
+    .meta { color: var(--muted); font-size: 13px; text-align: right; }
+    main { max-width: var(--max); margin: 0 auto; padding: 0 28px 76px; }
+
+    .hero { padding: 66px 0 38px; }
+    h1 { max-width: 880px; margin: 0; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; letter-spacing: -.045em; }
+    .hero p { max-width: 760px; margin: 22px 0 0; color: var(--muted); font-size: clamp(18px, 2vw, 22px); }
+
+    section { padding: 36px 0; }
+    h2 { margin: 0 0 22px; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -.025em; }
+    h3 { margin: 0; }
+
+    .summary {
+      padding: 30px 34px;
+      border-radius: 18px;
+      background: var(--blue-soft);
+    }
+    .summary h2 { font-size: 26px; }
+    .summary-list { display: grid; gap: 15px; margin: 0; padding: 0; list-style: none; }
+    .summary-list li { position: relative; padding-left: 25px; color: #30445f; }
+    .summary-list li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+    .summary-list strong { color: var(--ink); }
+
+    .scenario-rail { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .scenario { min-height: 164px; padding: 24px 18px; text-align: center; }
+    .scenario + .scenario { border-left: 1px solid var(--line); }
+    .scenario-icon { width: 48px; height: 48px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 14px; background: var(--blue-soft); color: var(--blue); font-weight: 800; font-size: 18px; }
+    .scenario h3 { font-size: 15px; line-height: 1.25; }
+    .scenario p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+
+    .section-intro { max-width: 760px; margin: -10px 0 25px; color: var(--muted); }
+    .preview-shell {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      min-height: 900px;
+      overflow: hidden;
+      border: 1px solid #cfd9e7;
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .preview-nav { padding: 18px; border-right: 1px solid var(--line); background: #fff; }
+    .preview-nav-title { margin: 3px 8px 14px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .preview-tab {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 11px;
+      align-items: center;
+      margin: 0;
+      padding: 13px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--ink);
+      font: 700 14px/1.25 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      text-align: left;
+      cursor: pointer;
+    }
+    .preview-tab + .preview-tab { margin-top: 4px; }
+    .preview-tab:hover { background: var(--surface); }
+    .preview-tab:focus-visible { outline: 3px solid rgba(20,99,255,.22); outline-offset: 2px; }
+    .preview-tab.is-active { background: var(--blue-soft); color: var(--blue-dark); }
+    .tab-number { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 9px; background: var(--surface); color: var(--muted); font-size: 11px; }
+    .preview-tab.is-active .tab-number { background: var(--blue); color: #fff; }
+    .preview-stage { min-width: 0; display: flex; flex-direction: column; background: #eef2f7; }
+    .preview-toolbar { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 11px 18px; border-bottom: 1px solid var(--line); background: #fff; }
+    .preview-heading { display: grid; gap: 3px; }
+    .preview-heading strong { font-size: 14px; }
+    .preview-heading span { color: var(--muted); font-size: 11px; }
+    .variant-switch { display: flex; gap: 4px; padding: 4px; border-radius: 11px; background: var(--surface); }
+    .variant-button { min-height: 34px; margin: 0; padding: 8px 12px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: 750 12px/1 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; cursor: pointer; }
+    .variant-button:hover { color: var(--ink); }
+    .variant-button:focus-visible { outline: 3px solid rgba(20,99,255,.22); outline-offset: 2px; }
+    .variant-button.is-active { background: #fff; color: var(--blue-dark); box-shadow: 0 2px 9px rgba(31,52,81,.1); }
+    .inbox-preview { display: grid; grid-template-columns: 40px minmax(0,1fr) auto; gap: 11px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); background: #fff; }
+    .inbox-avatar { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--blue-soft); color: var(--blue-dark); font-weight: 800; }
+    .inbox-copy { min-width: 0; }
+    .inbox-label { display: block; margin-bottom: 2px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
+    .inbox-line { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+    .inbox-sender { margin-right: 8px; color: var(--ink); font-weight: 800; }
+    .inbox-subject { color: var(--ink); font-weight: 800; }
+    .inbox-snippet { color: var(--muted); }
+    .inbox-time { align-self: end; padding-bottom: 1px; color: var(--muted); font-size: 11px; }
+    .email-frame { width: 100%; height: 842px; border: 0; background: #eef2f7; }
+    .preview-footnote { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+    .partner-section { padding-top: 48px; border-top: 1px solid var(--line); }
+    .partner-section .preview-shell { border-color: #e4e7e8; box-shadow: 0 18px 50px rgba(40,44,48,.08); }
+    .partner-section .preview-stage, .partner-section .email-frame { background: #f7f7f8; }
+    .partner-section .preview-tab.is-active { background: linear-gradient(135deg,#e9f8f1,#fff4d6 55%,#fdeceb); color: #282331; }
+    .partner-section .preview-tab.is-active .tab-number { background: #111; }
+    .partner-section .variant-button.is-active { color: #111; }
+    .partner-note { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: 14px 0 0; }
+    .partner-note span { padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 12px; background: #fafafa; color: #625f6b; font-size: 12px; line-height: 1.45; }
+    .partner-note span:nth-child(1) { background: #e9f8f1; }
+    .partner-note span:nth-child(2) { background: #fff4d6; }
+    .partner-note span:nth-child(3) { background: #fdeceb; }
+
+    .reference-note { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .reference-note article { padding: 22px; border-top: 3px solid var(--blue); background: var(--surface); }
+    .reference-note h3 { margin-bottom: 10px; font-size: 17px; }
+    .reference-note p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .decisions { padding: 30px; border-radius: 18px; background: var(--blue-soft); }
+    .decision-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .decision-list li { display: grid; grid-template-columns: 38px 1fr; gap: 13px; align-items: start; padding: 16px; border: 1px solid rgba(20,99,255,.16); border-radius: 10px; background: rgba(255,255,255,.78); }
+    .decision-number { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 800; }
+    .decision-list strong { display: block; margin-bottom: 3px; }
+    .decision-list span:last-child { color: var(--muted); font-size: 14px; }
+
+    .evidence { display: grid; grid-template-columns: 1.15fr 1fr 1fr; overflow: hidden; border: 1px solid #bfe7d6; border-radius: 14px; background: var(--green-soft); }
+    .evidence > div { padding: 22px; }
+    .evidence > div + div { border-left: 1px solid #bfe7d6; }
+    .evidence .label { display: block; color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+    .evidence strong { display: block; margin-top: 6px; font-size: clamp(23px, 3vw, 34px); line-height: 1; }
+    .evidence p { margin: 8px 0 0; color: #416558; font-size: 12px; }
+    .caveat { margin: 13px 0 0; color: var(--muted); font-size: 12px; }
+
+    body:not(.is-unlocked) > main { display: none; }
+    .access-gate { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: linear-gradient(145deg,#f4f7fb,#eaf2ff); }
+    body.is-unlocked > .access-gate { display: none; }
+    .access-card { width: min(100%,420px); padding: 34px; border: 1px solid var(--line); border-radius: 22px; background: #fff; box-shadow: var(--shadow); }
+    .access-mark { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 22px; border-radius: 14px; background: var(--blue); color: #fff; font-size: 21px; font-weight: 900; }
+    .access-card h1 { margin: 0 0 9px; font-size: 30px; letter-spacing: -.03em; }
+    .access-card p { margin: 0 0 22px; color: var(--muted); }
+    .access-form { display: grid; gap: 12px; }
+    .access-form label { color: var(--ink); font-size: 13px; font-weight: 800; }
+    .access-form input { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #cbd6e5; border-radius: 11px; color: var(--ink); font: 700 18px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; letter-spacing: .16em; }
+    .access-form input:focus { outline: 3px solid rgba(20,99,255,.18); border-color: var(--blue); }
+    .access-form button { min-height: 50px; border: 0; border-radius: 11px; background: var(--ink); color: #fff; font: 800 15px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; cursor: pointer; }
+    .access-form button:hover { background: #1b3558; }
+    .access-error { min-height: 19px; margin: 0!important; color: #b42318!important; font-size: 13px; }
+
+    footer { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 900px) {
+      .scenario-rail { grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); }
+      .scenario + .scenario { border-left: 0; }
+      .scenario { border-bottom: 1px solid var(--line); }
+      .scenario:nth-child(even) { border-left: 1px solid var(--line); }
+      .scenario:last-child { grid-column: 1 / -1; border-bottom: 0; }
+      .preview-shell { grid-template-columns: 1fr; }
+      .preview-nav { display: flex; gap: 7px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .preview-nav-title { display: none; }
+      .preview-tab { min-width: 205px; }
+      .evidence { grid-template-columns: 1fr; }
+      .evidence > div + div { border-left: 0; border-top: 1px solid #bfe7d6; }
+    }
+
+    @media (max-width: 620px) {
+      .topbar-inner, main { padding-left: 18px; padding-right: 18px; }
+      .meta { display: none; }
+      .hero { padding-top: 44px; }
+      .summary, .decisions { padding: 23px 20px; border-radius: 13px; }
+      .scenario-rail, .reference-note { grid-template-columns: 1fr; }
+      .scenario, .scenario:nth-child(even), .scenario:last-child { grid-column: auto; border-left: 0; border-bottom: 1px solid var(--line); }
+      .scenario:last-child { border-bottom: 0; }
+      .decision-list li { grid-template-columns: 32px 1fr; padding: 13px; }
+      .preview-toolbar { align-items: stretch; flex-direction: column; }
+      .variant-switch { width: 100%; }
+      .variant-button { flex: 1; }
+      .inbox-preview { grid-template-columns: 34px minmax(0,1fr); padding: 11px 12px; }
+      .inbox-avatar { width: 34px; height: 34px; }
+      .inbox-time { display: none; }
+      .inbox-sender { display: block; margin: 0 0 2px; font-size: 12px; }
+      .access-card { padding: 28px 22px; }
+      .partner-note { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .topbar { position: static; }
+      .preview-shell, .summary, .decisions, .evidence { break-inside: avoid; box-shadow: none; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <section class="access-gate" aria-labelledby="access-title">
+    <div class="access-card">
+      <div class="access-mark" aria-hidden="true">И</div>
+      <h1 id="access-title">Доступ к отчёту</h1>
+      <p>Введите пароль, чтобы открыть макеты email‑коммуникаций ОСАГО.</p>
+      <form class="access-form" id="accessForm">
+        <label for="accessPassword">Пароль</label>
+        <input id="accessPassword" name="password" type="password" inputmode="numeric" autocomplete="current-password" required autofocus>
+        <button type="submit">Открыть отчёт</button>
+        <p class="access-error" id="accessError" role="alert" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <main>
+    <header class="hero">
+      <h1 tabindex="-1">Email-коммуникации ОСАГО: сверка с INS‑3873</h1>
+    </header>
+
+    <section class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Executive Summary</h2>
+      <ul class="summary-list">
+        <li><strong>Отчёт соответствует INS‑3873 по составу коммуникаций.</strong> В задаче зафиксированы пять самостоятельных email‑сценариев: Welcome, брошенная корзина, ссылка на оплату, мини‑КАСКО и пролонгация ОСАГО. Первая версия — только backend и только email.</li>
+        <li><strong>Сервис и маркетинг разделены.</strong> Welcome, корзина и ссылка на оплату относятся к текущему оформлению ОСАГО; мини‑КАСКО и пролонгация требуют согласия на маркетинг ИНСАП. Маркетинговый блок внутри Welcome также показывается только при таком согласии.</li>
+        <li><strong>Тайминги и стоп‑условия уже определены задачей.</strong> Корзина — через 60 минут, 24 часа и за день до начала полиса; мини‑КАСКО — через 24 часа, 90 и 180 дней после оплаты; пролонгация — за 95 и 65 дней до окончания. Ссылка на оплату отправляется сразу после получения действующей ссылки.</li>
+        <li><strong>Макеты ниже остаются рабочими вариантами.</strong> Тексты, изображения и композиция ещё могут меняться, но backend должен подставлять только актуальные данные конкретной заявки и не использовать статические цены, страховщиков, даты или ссылки из примеров.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="scenario-title">
+      <h2 id="scenario-title">Пять писем, которые обсуждали</h2>
+      <div class="scenario-rail">
+        <article class="scenario"><div class="scenario-icon">01</div><h3>Welcome / полис</h3><p>Один раз после оплаты и готовности документов</p></article>
+        <article class="scenario"><div class="scenario-icon">02</div><h3>Брошенная корзина</h3><p>Через 60 минут, 24 часа и за день до начала</p></article>
+        <article class="scenario"><div class="scenario-icon">03</div><h3>Ссылка на оплату</h3><p>Сразу после получения действующей ссылки</p></article>
+        <article class="scenario"><div class="scenario-icon">04</div><h3>Мини-КАСКО</h3><p>Через 24 часа, 90 и 180 дней после оплаты</p></article>
+        <article class="scenario"><div class="scenario-icon">05</div><h3>Продление ОСАГО</h3><p>За 95 и 65 дней до окончания полиса</p></article>
+      </div>
+    </section>
+
+    <section aria-labelledby="examples-title">
+      <h2 id="examples-title">Полноценные макеты писем</h2>
+      <p class="section-intro">Для каждого сценария можно переключить два способа реализации: визуальный дизайн с отдельными модулями и простой одноколоночный шаблон. Мини‑КАСКО — один сценарий; для волн после покупки ОСАГО пока используется одинаковое письмо с актуальными рассчитанными предложениями.</p>
+
+      <div class="preview-shell" data-preview-component>
+        <nav class="preview-nav" aria-label="Выбор макета письма" role="tablist" aria-orientation="vertical">
+          <div class="preview-nav-title">Выберите письмо</div>
+          <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="emailPreview" data-rich-src="email-previews/01-welcome.html" data-simple-src="email-previews/01-welcome-simple.html" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы."><span class="tab-number">01</span><span>Welcome / полис</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/02-abandoned-cart.html" data-simple-src="email-previews/02-abandoned-cart-simple.html" data-title="Брошенная корзина" data-subject="Расчёт ОСАГО сохранён" data-snippet="Данные сохранены — продолжите оформление."><span class="tab-number">02</span><span>Брошенная корзина</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/03-payment-link.html" data-simple-src="email-previews/03-payment-link-simple.html" data-title="Ссылка на оплату" data-subject="Завершите оплату ОСАГО" data-snippet="Страховая компания подтвердила предложение."><span class="tab-number">03</span><span>Ссылка на оплату</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/05-mini-kasko-compare.html" data-simple-src="email-previews/05-mini-kasko-compare-simple.html" data-title="Мини-КАСКО" data-subject="Предложения мини-КАСКО" data-snippet="Для автомобиля доступны рассчитанные предложения."><span class="tab-number">04</span><span>Мини-КАСКО</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/06-renewal.html" data-simple-src="email-previews/06-renewal-simple.html" data-title="Продление ОСАГО" data-subject="ОСАГО скоро закончится" data-snippet="Проверьте актуальное продление."><span class="tab-number">05</span><span>Продление ОСАГО</span></button>
+        </nav>
+        <div class="preview-stage">
+          <div class="preview-toolbar">
+            <div class="preview-heading"><strong class="preview-title" id="previewTitle">Welcome / полис</strong><span class="preview-mode-note" id="previewModeNote">Вариант 1 — визуальный HTML-дизайн</span></div>
+            <div class="variant-switch" role="group" aria-label="Вариант реализации письма">
+              <button class="variant-button is-active" type="button" data-mode="rich" aria-pressed="true">1 · Дизайн</button>
+              <button class="variant-button" type="button" data-mode="simple" aria-pressed="false">2 · Простой шаблон</button>
+            </div>
+          </div>
+          <div class="inbox-preview" aria-label="Предпросмотр темы письма во входящих">
+            <span class="inbox-avatar" aria-hidden="true">И</span>
+            <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><span class="inbox-sender">Insapp</span><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы.</span></div></div>
+            <time class="inbox-time">сейчас</time>
+          </div>
+          <iframe class="email-frame" id="emailPreview" name="emailPreview" src="email-previews/01-welcome.html" title="Макет письма: Welcome / полис" loading="eager"></iframe>
+        </div>
+      </div>
+      <p class="preview-footnote"><strong>По реализации:</strong> первый вариант потребует больше работы с вёрсткой и проверкой отображения. Второй можно собрать как простой email-шаблон на стороне отправки. Все данные в макетах показаны только для иллюстрации структуры: перед отправкой backend подставляет актуальные значения конкретной заявки, а при отсутствии обязательной ссылки или предложения письмо не отправляется.</p>
+    </section>
+
+    <section class="partner-section" aria-labelledby="partner-examples-title">
+      <h2 id="partner-examples-title">Обезличенные макеты писем</h2>
+      <p class="section-intro">Тот же набор из пяти полноценных писем: сохраняются структура, композиция и сценарные иллюстрации. Отличаются только нейтральная цветовая палитра, чёрные кнопки и отсутствие логотипа Insapp. Цвета собраны на переменных, поэтому макет можно быстро адаптировать под любого партнёра без перевёрстки.</p>
+
+      <div class="preview-shell" data-preview-component>
+        <nav class="preview-nav" aria-label="Выбор обезличенного макета письма" role="tablist" aria-orientation="vertical">
+          <div class="preview-nav-title">Выберите письмо</div>
+          <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="partnerEmailPreview" data-rich-src="email-previews/01-welcome.html?theme=partner" data-simple-src="email-previews/01-welcome-simple.html?theme=partner" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы."><span class="tab-number">01</span><span>Welcome / полис</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/02-abandoned-cart.html?theme=partner" data-simple-src="email-previews/02-abandoned-cart-simple.html?theme=partner" data-title="Брошенная корзина" data-subject="Расчёт ОСАГО сохранён" data-snippet="Данные сохранены — продолжите оформление."><span class="tab-number">02</span><span>Брошенная корзина</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/03-payment-link.html?theme=partner" data-simple-src="email-previews/03-payment-link-simple.html?theme=partner" data-title="Ссылка на оплату" data-subject="Завершите оплату ОСАГО" data-snippet="Страховая компания подтвердила предложение."><span class="tab-number">03</span><span>Ссылка на оплату</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/05-mini-kasko-compare.html?theme=partner" data-simple-src="email-previews/05-mini-kasko-compare-simple.html?theme=partner" data-title="Мини-КАСКО" data-subject="Предложения мини-КАСКО" data-snippet="Для автомобиля доступны рассчитанные предложения."><span class="tab-number">04</span><span>Мини-КАСКО</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/06-renewal.html?theme=partner" data-simple-src="email-previews/06-renewal-simple.html?theme=partner" data-title="Продление ОСАГО" data-subject="ОСАГО скоро закончится" data-snippet="Проверьте актуальное продление."><span class="tab-number">05</span><span>Продление ОСАГО</span></button>
+        </nav>
+        <div class="preview-stage">
+          <div class="preview-toolbar">
+            <div class="preview-heading"><strong class="preview-title" id="partnerPreviewTitle">Welcome / полис</strong><span class="preview-mode-note" id="partnerPreviewModeNote">Вариант 1 — тот же дизайн, альтернативная палитра</span></div>
+            <div class="variant-switch" role="group" aria-label="Вариант обезличенного письма">
+              <button class="variant-button is-active" type="button" data-mode="rich" aria-pressed="true">1 · Дизайн</button>
+              <button class="variant-button" type="button" data-mode="simple" aria-pressed="false">2 · Простой шаблон</button>
+            </div>
+          </div>
+          <div class="inbox-preview" aria-label="Предпросмотр темы письма во входящих">
+            <span class="inbox-avatar" aria-hidden="true">П</span>
+            <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><span class="inbox-sender">Отправитель</span><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы.</span></div></div>
+            <time class="inbox-time">сейчас</time>
+          </div>
+          <iframe class="email-frame" id="partnerEmailPreview" name="partnerEmailPreview" src="email-previews/01-welcome.html?theme=partner" title="Обезличенный макет письма: Welcome / полис" loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="partner-note" aria-label="Что меняется для партнёра"><span><strong>Логотип</strong><br>Добавляется только при наличии готового брендинга партнёра.</span><span><strong>Цвета</strong><br>Меняются через единый набор CSS-переменных без перевёрстки письма.</span><span><strong>Юридический блок</strong><br>В примере указаны реквизиты ИНСАП; для другого отправителя их можно заменить только на проверенные данные.</span></div>
+    </section>
+
+    <section aria-labelledby="references-title">
+      <h2 id="references-title">Что взяли из реальных писем</h2>
+      <div class="reference-note">
+        <article><h3>Сравни: продление</h3><p>В первом экране сразу показаны автомобиль, госномер и дата окончания. Это сокращает объяснение и делает письмо персональным.</p></article>
+        <article><h3>Сравни: оплата и отказ страховой</h3><p>Полезен запасной маршрут, но тема обязана совпадать с фактическим статусом. «Вам одобрили» нельзя писать, если выбранная страховая не ответила.</p></article>
+      </div>
+    </section>
+
+    <section class="decisions" aria-labelledby="decisions-title">
+      <h2 id="decisions-title">Что уже зафиксировано в INS‑3873</h2>
+      <ol class="decision-list">
+        <li><span class="decision-number">1</span><span><strong>Включение на уровне API‑ключа</strong>Общий переключатель «Коммуникации 360» и пять отдельных переключателей сценариев. При выключенной программе текущая логика отправок не меняется.</span></li>
+        <li><span class="decision-number">2</span><span><strong>Согласия</strong>Сервисные письма не требуют маркетингового согласия. Мини‑КАСКО, пролонгация и рекламный блок внутри Welcome отправляются только при <code>InsappMarketingAgreement = true</code>.</span></li>
+        <li><span class="decision-number">3</span><span><strong>Приоритеты и защита от дублей</strong>Ссылка на оплату останавливает корзину, оплата прекращает обе цепочки, а каждая волна отправляется не более одного раза для одной заявки или полиса.</span></li>
+        <li><span class="decision-number">4</span><span><strong>Оформление и данные</strong>Используются существующие HTML‑шаблоны, настройки логотипа, цвета и отправителя. Тексты макетов рабочие; цены, страховщики, даты и URL всегда берутся из актуальной заявки перед отправкой.</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="evidence-title">
+      <h2 id="evidence-title">Сколько заявок ОСАГО разрешают маркетинговые письма</h2>
+      <p class="section-intro">Расчёт включает только заявления ОСАГО из виджетов — другие страховые продукты в эти цифры не входят. За июнь–август 2026 года проверено 1 685 841 заявление. Данные о согласиях сохранены у 450 297 заявок — это 26,71 % от общего объёма. Проценты ниже считаются именно от этих 450 297 заявок.</p>
+      <div class="evidence">
+        <div><span class="label">Разрешён хотя бы один маркетинг</span><strong>33,51 %</strong><p>150 910 заявок. Есть согласие хотя бы на одного отправителя.</p></div>
+        <div><span class="label">Можно писать от ИНСАП</span><strong>29,45 %</strong><p>132 608 заявок. Разрешены рекламные сообщения от ООО «ИНСАП».</p></div>
+        <div><span class="label">Можно писать от площадки партнёра</span><strong>21,24 %</strong><p>95 641 заявка. Разрешена реклама от сайта, банка или агента, через которого клиент оформлял ОСАГО.</p></div>
+      </div>
+      <p class="caveat"><strong>Важно:</strong> все показатели в этом блоке относятся только к ОСАГО. Партнёр — это не страховая компания, а источник заявки: например, сайт, банк или агент с виджетом ИНСАП. У 17,18 % заявок сохранены оба разрешения одновременно, но это отдельный юридический сценарий. Проценты относятся только к маркетинговым письмам; сервисные письма по текущему оформлению рассматриваются отдельно. Единица расчёта — заявка, а не уникальный человек или email.</p>
+    </section>
+
+  </main>
+  <script>
+    (() => {
+      const accessKey = 'osago-report-access-v1';
+      const expectedHash = '66c94576';
+      const form = document.getElementById('accessForm');
+      const input = document.getElementById('accessPassword');
+      const error = document.getElementById('accessError');
+      const hashPassword = value => {
+        let hash = 2166136261;
+        for (const char of value) {
+          hash ^= char.charCodeAt(0);
+          hash = Math.imul(hash, 16777619);
+        }
+        return (hash >>> 0).toString(16);
+      };
+      const unlock = () => {
+        document.body.classList.add('is-unlocked');
+        document.querySelector('.access-gate').setAttribute('aria-hidden', 'true');
+      };
+      if (sessionStorage.getItem(accessKey) === expectedHash) unlock();
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const submittedHash = hashPassword(input.value);
+        if (submittedHash === expectedHash) {
+          sessionStorage.setItem(accessKey, expectedHash);
+          error.textContent = '';
+          unlock();
+          document.querySelector('main h1').focus({ preventScroll: true });
+          return;
+        }
+        error.textContent = 'Неверный пароль. Попробуйте ещё раз.';
+        input.select();
+      });
+    })();
+
+    function initPreview(shell) {
+      const tabs = Array.from(shell.querySelectorAll('.preview-tab'));
+      const variantButtons = Array.from(shell.querySelectorAll('.variant-button'));
+      const frame = shell.querySelector('.email-frame');
+      const previewTitle = shell.querySelector('.preview-title');
+      const previewModeNote = shell.querySelector('.preview-mode-note');
+      const inboxSubject = shell.querySelector('.inbox-subject');
+      const inboxSnippet = shell.querySelector('.inbox-snippet');
+      const partnerMode = frame.id === 'partnerEmailPreview';
+      let activeTab = tabs[0];
+      let activeMode = 'rich';
+
+      function updatePreview() {
+        const src = activeMode === 'rich' ? activeTab.dataset.richSrc : activeTab.dataset.simpleSrc;
+        const modeTitle = activeMode === 'rich' ? 'дизайн' : 'простой шаблон';
+        frame.src = src;
+        frame.title = (partnerMode ? 'Обезличенный макет письма: ' : 'Макет письма: ') + activeTab.dataset.title + ', ' + modeTitle;
+        previewTitle.textContent = activeTab.dataset.title;
+        inboxSubject.textContent = activeTab.dataset.subject;
+        inboxSnippet.textContent = ' — ' + activeTab.dataset.snippet;
+        previewModeNote.textContent = activeMode === 'rich'
+          ? (partnerMode ? 'Вариант 1 — тот же дизайн, альтернативная палитра' : 'Вариант 1 — визуальный HTML-дизайн')
+          : (partnerMode ? 'Вариант 2 — тот же простой шаблон, альтернативная палитра' : 'Вариант 2 — простой одноколоночный шаблон');
+      }
+
+      function selectPreview(tab) {
+        activeTab = tab;
+        tabs.forEach(item => {
+          const active = item === tab;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        updatePreview();
+      }
+
+      variantButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          activeMode = button.dataset.mode;
+          variantButtons.forEach(item => {
+            const active = item === button;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+          updatePreview();
+        });
+      });
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectPreview(tab));
+        tab.addEventListener('keydown', event => {
+          if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          let nextIndex = index;
+          if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+          if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = tabs.length - 1;
+          tabs[nextIndex].focus();
+          selectPreview(tabs[nextIndex]);
+        });
+      });
+    }
+
+    document.querySelectorAll('[data-preview-component]').forEach(initPreview);
+
+  </script>
+</body>
+</html>
