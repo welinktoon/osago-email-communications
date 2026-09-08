@@ -118,8 +118,7 @@
     .variant-button:hover { color: var(--ink); }
     .variant-button:focus-visible { outline: 3px solid rgba(20,99,255,.22); outline-offset: 2px; }
     .variant-button.is-active { background: #fff; color: var(--blue-dark); box-shadow: 0 2px 9px rgba(31,52,81,.1); }
-    .inbox-preview { display: grid; grid-template-columns: 40px minmax(0,1fr) auto; gap: 11px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); background: #fff; }
-    .inbox-avatar { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--blue-soft); color: var(--blue-dark); font-weight: 800; }
+    .inbox-preview { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 11px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); background: #fff; }
     .inbox-copy { min-width: 0; }
     .inbox-label { display: block; margin-bottom: 2px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
     .inbox-line { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
@@ -204,8 +203,7 @@
       .preview-toolbar { align-items: stretch; flex-direction: column; }
       .variant-switch { width: 100%; }
       .variant-button { flex: 1; }
-      .inbox-preview { grid-template-columns: 34px minmax(0,1fr); padding: 11px 12px; }
-      .inbox-avatar { width: 34px; height: 34px; }
+      .inbox-preview { grid-template-columns: minmax(0,1fr); padding: 11px 12px; }
       .inbox-time { display: none; }
       .inbox-sender { display: block; margin: 0 0 2px; font-size: 12px; }
       .access-card { padding: 28px 22px; }
@@ -282,7 +280,6 @@
             </div>
           </div>
           <div class="inbox-preview" aria-label="Предпросмотр темы письма во входящих">
-            <span class="inbox-avatar" aria-hidden="true">И</span>
             <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><span class="inbox-sender">Insapp</span><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы.</span></div></div>
             <time class="inbox-time">сейчас</time>
           </div>
@@ -314,7 +311,6 @@
             </div>
           </div>
           <div class="inbox-preview" aria-label="Предпросмотр темы письма во входящих">
-            <span class="inbox-avatar" aria-hidden="true">П</span>
             <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><span class="inbox-sender">Отправитель</span><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы.</span></div></div>
             <time class="inbox-time">сейчас</time>
           </div>
