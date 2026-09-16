@@ -2,12 +2,12 @@
   if (!document.documentElement.classList.contains('partner-theme')) return;
 
   const paths = {
-    'benefit-check-v1.png': '<circle cx="24" cy="24" r="17"/><path d="m16 24 5.5 5.5L33 18"/>',
-    'benefit-mail-v1.png': '<rect x="7" y="12" width="34" height="24" rx="4"/><path d="m8 16 16 12 16-12"/>',
-    'benefit-car-v1.png': '<path d="M9 29V22l4-9h22l4 9v7"/><path d="M9 29h30M13 22h22M14 29v5m20-5v5"/><circle cx="16" cy="26" r="1"/><circle cx="32" cy="26" r="1"/>',
-    'benefit-lock-v1.png': '<rect x="11" y="21" width="26" height="20" rx="4"/><path d="M16 21v-6a8 8 0 0 1 16 0v6"/><circle cx="24" cy="30" r="2"/><path d="M24 32v3"/>',
-    'benefit-price-v1.png': '<path d="M8 22V10h16l17 17-14 14L8 22Z"/><circle cx="17" cy="17" r="2"/>',
-    'benefit-speed-v1.png': '<circle cx="24" cy="25" r="16"/><path d="M24 15v11l8 5M19 5h10"/>'
+    'benefit-check-v1.png': '<circle class="icon-fill" cx="24" cy="24" r="17"/><path d="m15.5 24 5.5 5.5L33 17.5"/>',
+    'benefit-mail-v1.png': '<rect class="icon-fill" x="6" y="12" width="36" height="25" rx="5"/><path d="m8 16 16 12 16-12"/><circle class="icon-accent" cx="38" cy="10" r="4"/>',
+    'benefit-car-v1.png': '<path class="icon-fill" d="M8 23.5 12 14h24l4 9.5V34H8Z"/><path d="M12 24h24"/><circle class="icon-accent" cx="15" cy="34" r="3"/><circle class="icon-accent" cx="33" cy="34" r="3"/>',
+    'benefit-lock-v1.png': '<path d="M15 20v-5a9 9 0 0 1 18 0v5"/><rect class="icon-fill" x="10" y="20" width="28" height="21" rx="5"/><circle class="icon-accent" cx="24" cy="29" r="3"/><path d="M24 32v3"/>',
+    'benefit-price-v1.png': '<path class="icon-fill" d="M7 22V9h17l17 17-15 15Z"/><circle class="icon-accent" cx="17" cy="17" r="3"/>',
+    'benefit-speed-v1.png': '<circle class="icon-fill" cx="24" cy="25" r="17"/><path d="M24 14v12l8 5"/><path d="M19 5h10"/><circle class="icon-accent" cx="24" cy="25" r="3"/>'
   };
 
   document.addEventListener('DOMContentLoaded', () => {

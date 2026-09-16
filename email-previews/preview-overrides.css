@@ -41,18 +41,26 @@ html .hero-main-art {
 html.partner-theme .hero { align-items: start; padding-top: 8px; padding-bottom: 4px; }
 html.partner-theme .hero-art { height: 148px; overflow: visible; }
 
-/* The partner icons form one light, recolorable family. */
+/* Partner icons share a bold outline and pick up the selected brand color. */
 html.partner-theme .benefit-icon svg {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   fill: none;
-  color: #96a8b8;
-  color: color-mix(in srgb, var(--partner-action, #4a6f95) 30%, #b6c0ca);
+  color: #526a82;
+  color: color-mix(in srgb, var(--partner-accent, #4a6f95) 75%, #35475b);
   stroke: currentColor;
-  stroke-width: 2.3;
+  stroke-width: 3.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+html.partner-theme .benefit-icon svg .icon-fill {
+  fill: #e9eef4;
+  fill: color-mix(in srgb, var(--partner-accent, #4a6f95) 30%, white);
+}
+html.partner-theme .benefit-icon svg .icon-accent {
+  fill: currentColor;
+  stroke: none;
 }
 
 @media (max-width: 540px) {
