@@ -11,12 +11,6 @@ html.partner-theme .partner-logo-slot {
   color: #87909b;
   font: 700 13px Montserrat, Arial, sans-serif;
 }
-html.partner-theme .partner-logo-slot span {
-  display: inline-block;
-  padding: 6px 9px;
-  border: 1px dashed #cbd2dc;
-  border-radius: 7px;
-}
 html.partner-theme .partner-logo-slot img {
   display: block;
   max-width: 205px;
