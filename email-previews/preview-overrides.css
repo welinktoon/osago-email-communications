@@ -41,26 +41,14 @@ html .hero-main-art {
 html.partner-theme .hero { align-items: start; padding-top: 8px; padding-bottom: 4px; }
 html.partner-theme .hero-art { height: 148px; overflow: visible; }
 
-/* Partner icons share a bold outline and pick up the selected brand color. */
+/* Official Phosphor duotone icons pick up the selected partner color. */
 html.partner-theme .benefit-icon svg {
   display: block;
-  width: 46px;
-  height: 46px;
-  fill: none;
-  color: #526a82;
-  color: color-mix(in srgb, var(--partner-accent, #4a6f95) 75%, #35475b);
-  stroke: currentColor;
-  stroke-width: 3.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-html.partner-theme .benefit-icon svg .icon-fill {
-  fill: #e9eef4;
-  fill: color-mix(in srgb, var(--partner-accent, #4a6f95) 30%, white);
-}
-html.partner-theme .benefit-icon svg .icon-accent {
+  width: 50px;
+  height: 50px;
   fill: currentColor;
-  stroke: none;
+  color: #526a82;
+  color: color-mix(in srgb, var(--partner-accent, #4a6f95) 82%, #27384b);
 }
 
 @media (max-width: 540px) {
