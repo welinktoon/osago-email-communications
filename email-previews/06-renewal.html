@@ -47,13 +47,12 @@
       document.addEventListener('DOMContentLoaded', () => {
         document.title = document.title.split(' · ')[0] + ' · партнёрский шаблон';
         document.querySelectorAll('[data-partner-src]').forEach((image) => { image.src = image.dataset.partnerSrc; });
-        const partnerIcons = {'benefit-check-v1.png':'partner-benefit-check-v1.png','benefit-mail-v1.png':'partner-benefit-mail-v1.png','benefit-car-v1.png':'partner-benefit-car-v1.png','benefit-lock-v1.png':'partner-benefit-lock-v1.png','benefit-price-v1.png':'partner-benefit-price-v1.png','benefit-speed-v1.png':'partner-benefit-speed-v1.png'};
-        document.querySelectorAll('.benefit-icon img').forEach((image) => { const name = image.src.split('/').pop(); if (partnerIcons[name]) image.src = 'assets/' + partnerIcons[name]; });
         const reassuranceTitle = document.querySelector('.reassurance h2');
         if (reassuranceTitle) reassuranceTitle.textContent = 'Страхование — просто и понятно';
       });
     })();
   </script>
+  <script src="partner-icons.js" defer></script>
 
   <style>.benefit{background:#eef0f3!important}</style>
 </head>
@@ -61,6 +60,7 @@
   <span class="preheader">Проверьте актуальное продление ОСАГО — данные уже сохранены.</span>
   <main class="email">
     <section class="module primary">
+      <div class="partner-logo-slot" aria-label="Место для логотипа партнёра"><span>Логотип партнёра</span></div>
       <div class="hero">
         <div class="hero-copy"><div class="eyebrow">Пора продлить</div><h1><span class="heading-line">ОСАГО скоро</span><span class="heading-line">закончится</span></h1></div>
         <div class="hero-art"><img class="hero-main-art" src="assets/renewal-car-v2.png" data-partner-src="assets/renewal-car-neutral-v3.png" alt="Автомобиль, календарь и продление полиса" width="360" height="250"></div>
