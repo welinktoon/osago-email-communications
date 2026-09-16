@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Сверка вариантов email-коммуникаций ОСАГО с требованиями задачи INS-3873.">
   <title>Email-коммуникации ОСАГО · сверка с INS-3873</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
@@ -28,7 +31,7 @@
       margin: 0;
       background: var(--white);
       color: var(--ink);
-      font: 16px/1.55 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font: 16px/1.55 Montserrat, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
     a { font: inherit; }
@@ -98,7 +101,7 @@
       border-radius: 10px;
       background: transparent;
       color: var(--ink);
-      font: 700 14px/1.25 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font: 700 14px/1.25 Montserrat, Arial, sans-serif;
       text-align: left;
       cursor: pointer;
     }
@@ -114,7 +117,7 @@
     .preview-heading strong { font-size: 14px; }
     .preview-heading span { color: var(--muted); font-size: 11px; }
     .variant-switch { display: flex; gap: 4px; padding: 4px; border-radius: 11px; background: var(--surface); }
-    .variant-button { min-height: 34px; margin: 0; padding: 8px 12px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: 750 12px/1 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; cursor: pointer; }
+    .variant-button { min-height: 34px; margin: 0; padding: 8px 12px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: 750 12px/1 Montserrat, Arial, sans-serif; cursor: pointer; }
     .variant-button:hover { color: var(--ink); }
     .variant-button:focus-visible { outline: 3px solid rgba(20,99,255,.22); outline-offset: 2px; }
     .variant-button.is-active { background: #fff; color: var(--blue-dark); box-shadow: 0 2px 9px rgba(31,52,81,.1); }
@@ -139,6 +142,13 @@
     .partner-note span:nth-child(1) { background: #e9f8f1; }
     .partner-note span:nth-child(2) { background: #fff4d6; }
     .partner-note span:nth-child(3) { background: #fdeceb; }
+    .brand-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin: 0 0 18px; padding: 17px 20px; border: 1px solid var(--line); border-radius: 14px; background: #fafbfc; }
+    .brand-controls label { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
+    .brand-controls input[type="color"] { width: 42px; height: 36px; padding: 2px; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; }
+    .brand-controls input[type="file"] { max-width: 235px; font: 12px Montserrat, Arial, sans-serif; }
+    .brand-controls button { min-height: 34px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font: 700 12px Montserrat, Arial, sans-serif; cursor: pointer; }
+    .brand-controls button:hover { border-color: #99a8ba; }
+    .brand-controls small { flex-basis: 100%; color: var(--muted); font-size: 11px; }
 
     .reference-note { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .reference-note article { padding: 22px; border-top: 3px solid var(--blue); background: var(--surface); }
@@ -169,9 +179,9 @@
     .access-card p { margin: 0 0 22px; color: var(--muted); }
     .access-form { display: grid; gap: 12px; }
     .access-form label { color: var(--ink); font-size: 13px; font-weight: 800; }
-    .access-form input { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #cbd6e5; border-radius: 11px; color: var(--ink); font: 700 18px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; letter-spacing: .16em; }
+    .access-form input { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid #cbd6e5; border-radius: 11px; color: var(--ink); font: 700 18px/1 Montserrat,Arial,sans-serif; letter-spacing: .16em; }
     .access-form input:focus { outline: 3px solid rgba(20,99,255,.18); border-color: var(--blue); }
-    .access-form button { min-height: 50px; border: 0; border-radius: 11px; background: var(--ink); color: #fff; font: 800 15px/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; cursor: pointer; }
+    .access-form button { min-height: 50px; border: 0; border-radius: 11px; background: var(--ink); color: #fff; font: 800 15px/1 Montserrat,Arial,sans-serif; cursor: pointer; }
     .access-form button:hover { background: #1b3558; }
     .access-error { min-height: 19px; margin: 0!important; color: #b42318!important; font-size: 13px; }
 
@@ -291,7 +301,14 @@
 
     <section class="partner-section" aria-labelledby="partner-examples-title">
       <h2 id="partner-examples-title">Обезличенные макеты писем</h2>
-      <p class="section-intro">Тот же набор из пяти полноценных писем: сохраняются структура, композиция и сценарные иллюстрации. Отличаются только нейтральная цветовая палитра, чёрные кнопки и отсутствие логотипа Insapp. Цвета собраны на переменных, поэтому макет можно быстро адаптировать под любого партнёра без перевёрстки.</p>
+      <p class="section-intro">Тот же набор из пяти писем с оформлением партнёра. В backend логотип и основной цвет выбираются из действующих настроек API‑ключа. Здесь можно примерить цвет и логотип — это только локальный просмотр, настройки партнёра не меняются.</p>
+
+      <div class="brand-controls" aria-label="Настройка внешнего вида обезличенных писем">
+        <label for="brandColor">Основной цвет <input id="brandColor" type="color" value="#4a6f95"></label>
+        <label for="brandLogo">Логотип партнёра <input id="brandLogo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></label>
+        <button id="clearBrandLogo" type="button">Убрать логотип</button>
+        <small>Файл остаётся в вашем браузере. Если логотип не выбран, в письме показано место для него.</small>
+      </div>
 
       <div class="preview-shell" data-preview-component>
         <nav class="preview-nav" aria-label="Выбор обезличенного макета письма" role="tablist" aria-orientation="vertical">
@@ -366,6 +383,53 @@
       });
     })();
 
+    let partnerLogoData = '';
+
+    function applyPartnerBranding() {
+      const frame = document.getElementById('partnerEmailPreview');
+      const doc = frame.contentDocument;
+      if (!doc || !doc.documentElement.classList.contains('partner-theme')) return;
+      const color = document.getElementById('brandColor').value;
+      let style = doc.getElementById('preview-brand-style');
+      if (!style) {
+        style = doc.createElement('style');
+        style.id = 'preview-brand-style';
+        doc.head.appendChild(style);
+      }
+      style.textContent = `html.partner-theme{--partner-action:${color};--partner-accent:${color};--partner-accent-soft:${color}1a;--blue:${color};--blue-dark:${color};--blue-soft:${color}1a} html.partner-theme .eyebrow{color:${color}!important;background:${color}1a!important} html.partner-theme .offer-top strong,html.partner-theme .offer-row b{color:${color}!important} html.partner-theme .partner-logo-slot{min-height:70px;display:flex;align-items:center;justify-content:center;margin:0 0 2px;padding:14px;background:#fff;border-radius:18px;color:#87909b;font:700 12px Montserrat,Arial,sans-serif} html.partner-theme .partner-logo-slot img{display:block;max-width:180px;max-height:50px;object-fit:contain}`;
+      let slot = doc.querySelector('.partner-logo-slot');
+      if (!slot) {
+        slot = doc.createElement('div');
+        slot.className = 'partner-logo-slot';
+        slot.setAttribute('aria-label', 'Место для логотипа партнёра');
+        const email = doc.querySelector('.email');
+        if (email) email.prepend(slot);
+      }
+      slot.replaceChildren();
+      if (partnerLogoData) {
+        const logo = doc.createElement('img');
+        logo.src = partnerLogoData;
+        logo.alt = 'Логотип партнёра для просмотра';
+        slot.appendChild(logo);
+      } else {
+        slot.textContent = 'Место для логотипа партнёра';
+      }
+    }
+
+    document.getElementById('brandColor').addEventListener('input', applyPartnerBranding);
+    document.getElementById('brandLogo').addEventListener('change', event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => { partnerLogoData = String(reader.result); applyPartnerBranding(); };
+      reader.readAsDataURL(file);
+    });
+    document.getElementById('clearBrandLogo').addEventListener('click', () => {
+      document.getElementById('brandLogo').value = '';
+      partnerLogoData = '';
+      applyPartnerBranding();
+    });
+
     function initPreview(shell) {
       const tabs = Array.from(shell.querySelectorAll('.preview-tab'));
       const variantButtons = Array.from(shell.querySelectorAll('.variant-button'));
@@ -377,6 +441,7 @@
       const partnerMode = frame.id === 'partnerEmailPreview';
       let activeTab = tabs[0];
       let activeMode = 'rich';
+      if (partnerMode) frame.addEventListener('load', applyPartnerBranding);
 
       function updatePreview() {
         const src = activeMode === 'rich' ? activeTab.dataset.richSrc : activeTab.dataset.simpleSrc;
