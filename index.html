@@ -433,7 +433,7 @@
         style.id = 'preview-brand-style';
         doc.head.appendChild(style);
       }
-      style.textContent = `html.partner-theme{--partner-action:${color};--partner-accent:${color};--partner-accent-soft:${color}1a;--blue:${color};--blue-dark:${color};--blue-soft:${color}1a} html.partner-theme .eyebrow{color:${color}!important;background:${color}1a!important} html.partner-theme .offer-top strong,html.partner-theme .offer-row b{color:${color}!important}`;
+      style.textContent = `html.partner-theme{--partner-action:${color};--partner-accent:${color};--partner-accent-soft:${color}1a;--blue:${color};--blue-dark:${color};--blue-soft:${color}1a} html.partner-theme .eyebrow{color:${color}!important;background:${color}1a!important} html.partner-theme .offer-top strong,html.partner-theme .offer-row b{color:${color}!important} html.partner-theme .footer > p:not(.footer-reason){display:none!important}`;
     }
 
     document.getElementById('brandColor').addEventListener('input', applyPartnerBranding);
