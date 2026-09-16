@@ -82,6 +82,7 @@
     .scenario-detail ul { margin: 8px 0 0; padding-left: 20px; color: #30445f; font-size: 14px; }
     .scenario-detail li + li { margin-top: 5px; }
     .scenario-detail .detail-note { color: var(--muted); font-size: 12px; }
+    .scenario-branding-note { margin: 16px 0 0; padding: 16px 20px; border-left: 4px solid var(--blue); border-radius: 10px; background: var(--blue-soft); color: #30445f; font-size: 14px; }
 
     .section-intro { max-width: 760px; margin: -10px 0 25px; color: var(--muted); }
     .preview-shell {
@@ -306,6 +307,7 @@
           <p class="detail-note">Отправляется при маркетинговом согласии, если новый полис ещё не куплен и предложение актуально. После продления или исчезновения предложения следующие письма не отправляются.</p>
         </article>
       </div>
+      <p class="scenario-branding-note"><strong>Общее для всех пяти писем:</strong> оформление, отправитель и логотип берутся из действующих настроек API-ключа партнёра. В текущей схеме имя и адрес отправителя задаются на API-ключе, а цвет и логотип хранятся в настройках партнёра. Перед отправкой нужно использовать настройки того API-ключа, по которому создана заявка.</p>
     </section>
 
     <section aria-labelledby="examples-title">
