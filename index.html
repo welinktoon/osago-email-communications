@@ -441,7 +441,10 @@
       const partnerMode = frame.id === 'partnerEmailPreview';
       let activeTab = tabs[0];
       let activeMode = 'rich';
-      if (partnerMode) frame.addEventListener('load', applyPartnerBranding);
+      if (partnerMode) {
+        frame.addEventListener('load', applyPartnerBranding);
+        if (frame.contentDocument?.readyState === 'complete') applyPartnerBranding();
+      }
 
       function updatePreview() {
         const src = activeMode === 'rich' ? activeTab.dataset.richSrc : activeTab.dataset.simpleSrc;
