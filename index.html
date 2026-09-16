@@ -396,15 +396,15 @@
         style.id = 'preview-brand-style';
         doc.head.appendChild(style);
       }
-      style.textContent = `html.partner-theme{--partner-action:${color};--partner-accent:${color};--partner-accent-soft:${color}1a;--blue:${color};--blue-dark:${color};--blue-soft:${color}1a} html.partner-theme .eyebrow{color:${color}!important;background:${color}1a!important} html.partner-theme .offer-top strong,html.partner-theme .offer-row b{color:${color}!important} html.partner-theme .partner-logo-slot{min-height:70px;display:flex;align-items:center;justify-content:center;margin:0 0 2px;padding:14px;background:#fff;border-radius:18px;color:#87909b;font:700 12px Montserrat,Arial,sans-serif} html.partner-theme .partner-logo-slot img{display:block;max-width:180px;max-height:50px;object-fit:contain}`;
+      style.textContent = `html.partner-theme{--partner-action:${color};--partner-accent:${color};--partner-accent-soft:${color}1a;--blue:${color};--blue-dark:${color};--blue-soft:${color}1a} html.partner-theme .eyebrow{color:${color}!important;background:${color}1a!important} html.partner-theme .offer-top strong,html.partner-theme .offer-row b{color:${color}!important} html.partner-theme .partner-logo-slot{min-height:44px;display:flex;align-items:center;justify-content:flex-start;padding:18px 30px 0;color:#87909b;font:700 11px Montserrat,Arial,sans-serif} html.partner-theme .partner-logo-slot span{display:inline-block;padding:6px 9px;border:1px dashed #cbd2dc;border-radius:7px} html.partner-theme .partner-logo-slot img{display:block;max-width:170px;max-height:36px;object-fit:contain} html.partner-theme .simple-content .partner-logo-slot{min-height:36px;padding:0;margin:0 0 14px}`;
       let slot = doc.querySelector('.partner-logo-slot');
       if (!slot) {
         slot = doc.createElement('div');
         slot.className = 'partner-logo-slot';
         slot.setAttribute('aria-label', 'Место для логотипа партнёра');
-        const email = doc.querySelector('.email');
-        if (email) email.prepend(slot);
       }
+      const firstBlock = doc.querySelector('.module.primary, .simple-content');
+      if (firstBlock && slot.parentElement !== firstBlock) firstBlock.prepend(slot);
       slot.replaceChildren();
       if (partnerLogoData) {
         const logo = doc.createElement('img');
@@ -412,7 +412,9 @@
         logo.alt = 'Логотип партнёра для просмотра';
         slot.appendChild(logo);
       } else {
-        slot.textContent = 'Место для логотипа партнёра';
+        const placeholder = doc.createElement('span');
+        placeholder.textContent = 'Логотип партнёра';
+        slot.appendChild(placeholder);
       }
     }
 
