@@ -1,16 +1,3 @@
 /* Shared presentation rules for the published mockups. */
 html, body, button, input { font-family: Montserrat, Arial, sans-serif !important; }
-.reassurance .benefit-icon img {
-  filter: grayscale(1) brightness(1.5) opacity(.7) !important;
-}
-.monochrome-art .hero-main-art,
-.monochrome-art .simple-art-main,
-.monochrome-art .hero-sparkles,
-.monochrome-art .simple-sparkles {
-  filter: grayscale(1) brightness(1.25) !important;
-}
-html.partner-theme .monochrome-art .hero-main-art,
-html.partner-theme .monochrome-art .simple-art-main {
-  filter: grayscale(1) brightness(1.18) !important;
-}
 .reassurance .benefit { background: #f7f8fa !important; }
