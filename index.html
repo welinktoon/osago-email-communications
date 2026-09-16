@@ -145,10 +145,6 @@
     .brand-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin: 0 0 18px; padding: 17px 20px; border: 1px solid var(--line); border-radius: 14px; background: #fafbfc; }
     .brand-controls label { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
     .brand-controls input[type="color"] { width: 42px; height: 36px; padding: 2px; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; }
-    .brand-controls input[type="file"] { max-width: 235px; font: 12px Montserrat, Arial, sans-serif; }
-    .brand-controls button { min-height: 34px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font: 700 12px Montserrat, Arial, sans-serif; cursor: pointer; }
-    .brand-controls button:hover { border-color: #99a8ba; }
-    .brand-controls small { flex-basis: 100%; color: var(--muted); font-size: 11px; }
 
     .reference-note { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .reference-note article { padding: 22px; border-top: 3px solid var(--blue); background: var(--surface); }
@@ -301,13 +297,10 @@
 
     <section class="partner-section" aria-labelledby="partner-examples-title">
       <h2 id="partner-examples-title">Обезличенные макеты писем</h2>
-      <p class="section-intro">Тот же набор из пяти писем с оформлением партнёра. В backend логотип и основной цвет выбираются из действующих настроек API‑ключа. Здесь можно примерить цвет и логотип — это только локальный просмотр, настройки партнёра не меняются.</p>
+      <p class="section-intro">Тот же набор из пяти писем с оформлением партнёра. Здесь можно примерить основной цвет — это только локальный просмотр, настройки партнёра не меняются.</p>
 
       <div class="brand-controls" aria-label="Настройка внешнего вида обезличенных писем">
         <label for="brandColor">Основной цвет <input id="brandColor" type="color" value="#4a6f95"></label>
-        <label for="brandLogo">Логотип партнёра <input id="brandLogo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"></label>
-        <button id="clearBrandLogo" type="button">Убрать логотип</button>
-        <small>Файл остаётся в вашем браузере.</small>
       </div>
 
       <div class="preview-shell" data-preview-component>
@@ -383,8 +376,6 @@
       });
     })();
 
-    let partnerLogoData = '';
-
     function applyPartnerBranding() {
       const frame = document.getElementById('partnerEmailPreview');
       const doc = frame.contentDocument;
@@ -397,37 +388,9 @@
         doc.head.appendChild(style);
       }
       style.textContent = `html.partner-theme{--partner-action:${color};--partner-accent:${color};--partner-accent-soft:${color}1a;--blue:${color};--blue-dark:${color};--blue-soft:${color}1a} html.partner-theme .eyebrow{color:${color}!important;background:${color}1a!important} html.partner-theme .offer-top strong,html.partner-theme .offer-row b{color:${color}!important}`;
-      let slot = doc.querySelector('.partner-logo-slot');
-      if (!partnerLogoData) {
-        slot?.remove();
-        return;
-      }
-      if (!slot) {
-        slot = doc.createElement('div');
-        slot.className = 'partner-logo-slot';
-      }
-      const firstBlock = doc.querySelector('.module.primary, .simple-content');
-      if (firstBlock && slot.parentElement !== firstBlock) firstBlock.prepend(slot);
-      slot.replaceChildren();
-      const logo = doc.createElement('img');
-      logo.src = partnerLogoData;
-      logo.alt = 'Логотип партнёра для просмотра';
-      slot.appendChild(logo);
     }
 
     document.getElementById('brandColor').addEventListener('input', applyPartnerBranding);
-    document.getElementById('brandLogo').addEventListener('change', event => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => { partnerLogoData = String(reader.result); applyPartnerBranding(); };
-      reader.readAsDataURL(file);
-    });
-    document.getElementById('clearBrandLogo').addEventListener('click', () => {
-      document.getElementById('brandLogo').value = '';
-      partnerLogoData = '';
-      applyPartnerBranding();
-    });
 
     function initPreview(shell) {
       const tabs = Array.from(shell.querySelectorAll('.preview-tab'));

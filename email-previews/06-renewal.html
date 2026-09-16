@@ -47,12 +47,13 @@
       document.addEventListener('DOMContentLoaded', () => {
         document.title = document.title.split(' · ')[0] + ' · партнёрский шаблон';
         document.querySelectorAll('[data-partner-src]').forEach((image) => { image.src = image.dataset.partnerSrc; });
+        const partnerIcons = {'benefit-check-v1.png':'partner-benefit-check-v1.png','benefit-mail-v1.png':'partner-benefit-mail-v1.png','benefit-car-v1.png':'partner-benefit-car-v1.png','benefit-lock-v1.png':'partner-benefit-lock-v1.png','benefit-price-v1.png':'partner-benefit-price-v1.png','benefit-speed-v1.png':'partner-benefit-speed-v1.png'};
+        document.querySelectorAll('.benefit-icon img').forEach((image) => { const name = image.src.split('/').pop(); if (partnerIcons[name]) image.src = 'assets/' + partnerIcons[name]; });
         const reassuranceTitle = document.querySelector('.reassurance h2');
         if (reassuranceTitle) reassuranceTitle.textContent = 'Страхование — просто и понятно';
       });
     })();
   </script>
-  <script src="partner-icons.js" defer></script>
 
   <style>.benefit{background:#eef0f3!important}</style>
 </head>

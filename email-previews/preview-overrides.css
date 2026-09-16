@@ -1,27 +1,6 @@
 /* Shared presentation rules for the published mockups. */
 html, body, button, input { font-family: Montserrat, Arial, sans-serif !important; }
 
-.partner-logo-slot { display: none; }
-html.partner-theme .partner-logo-slot {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 10px 30px 0;
-  margin-bottom: 5px;
-  color: #87909b;
-  font: 700 13px Montserrat, Arial, sans-serif;
-}
-html.partner-theme .partner-logo-slot img {
-  display: block;
-  max-width: 205px;
-  max-height: 52px;
-  object-fit: contain;
-}
-html.partner-theme .simple-content .partner-logo-slot {
-  padding: 0;
-  margin: 0 0 8px;
-}
-
 /* Show the complete hero artwork in both preview families. */
 html .hero-art { overflow: visible; }
 html .hero-main-art {
@@ -32,19 +11,10 @@ html .hero-main-art {
 }
 
 /* Keep partner artwork compact inside the first card at every preview width. */
-html.partner-theme .hero { align-items: start; padding-top: 8px; padding-bottom: 4px; }
+html.partner-theme .hero { align-items: start; padding-top: 20px; padding-bottom: 4px; }
 html.partner-theme .hero-art { height: 148px; overflow: visible; }
 
-/* Official Phosphor duotone icons pick up the selected partner color. */
-html.partner-theme .benefit-icon svg {
-  display: block;
-  width: 50px;
-  height: 50px;
-  fill: currentColor;
-  color: #526a82;
-  color: color-mix(in srgb, var(--partner-accent, #4a6f95) 82%, #27384b);
-}
-
 @media (max-width: 540px) {
+  html.partner-theme .hero { padding-top: 22px; }
   html.partner-theme .hero-art { height: 190px; }
 }
