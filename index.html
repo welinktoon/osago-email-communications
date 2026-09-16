@@ -75,6 +75,13 @@
     .scenario-icon { width: 48px; height: 48px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 14px; background: var(--blue-soft); color: var(--blue); font-weight: 800; font-size: 18px; }
     .scenario h3 { font-size: 15px; line-height: 1.25; }
     .scenario p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+    .scenario-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+    .scenario-detail { padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .scenario-detail h3 { margin-bottom: 10px; font-size: 17px; }
+    .scenario-detail p { margin: 8px 0 0; color: #30445f; font-size: 14px; }
+    .scenario-detail ul { margin: 8px 0 0; padding-left: 20px; color: #30445f; font-size: 14px; }
+    .scenario-detail li + li { margin-top: 5px; }
+    .scenario-detail .detail-note { color: var(--muted); font-size: 12px; }
 
     .section-intro { max-width: 760px; margin: -10px 0 25px; color: var(--muted); }
     .preview-shell {
@@ -184,6 +191,7 @@
     footer { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 
     @media (max-width: 900px) {
+      .scenario-details { grid-template-columns: 1fr; }
       .scenario-rail { grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); }
       .scenario + .scenario { border-left: 0; }
       .scenario { border-bottom: 1px solid var(--line); }
@@ -262,7 +270,41 @@
         <article class="scenario"><div class="scenario-icon">02</div><h3>Брошенная корзина</h3><p>Через 60 минут, 24 часа и за день до начала</p></article>
         <article class="scenario"><div class="scenario-icon">03</div><h3>Ссылка на оплату</h3><p>Сразу после получения действующей ссылки</p></article>
         <article class="scenario"><div class="scenario-icon">04</div><h3>Мини-КАСКО</h3><p>Через 24 часа, 90 и 180 дней после оплаты</p></article>
-        <article class="scenario"><div class="scenario-icon">05</div><h3>Продление ОСАГО</h3><p>За 95 и 65 дней до окончания полиса</p></article>
+        <article class="scenario"><div class="scenario-icon">05</div><h3>Продление ОСАГО</h3><p>За 95 и 65 дней до окончания и в день окончания полиса</p></article>
+      </div>
+      <div class="scenario-details" aria-label="Содержание писем и действия">
+        <article class="scenario-detail">
+          <h3>01 · Welcome / полис</h3>
+          <p>Письмо подтверждает оформление ОСАГО: данные автомобиля, страховщика и срока действия, а также готовые документы полиса во вложении. Отправляется один раз после оплаты и выпуска полиса.</p>
+          <p><strong>Действие:</strong> документы можно открыть из вложения. Если для полиса доступна действующая ссылка на документ, можно добавить кнопку «Открыть полис», ведущую к этому полису; без ссылки обещать переход по кнопке нельзя.</p>
+          <p class="detail-note">Сервисная часть отправляется без маркетингового согласия. Дополнительные предложения в Welcome допустимы только при соответствующем согласии.</p>
+        </article>
+        <article class="scenario-detail">
+          <h3>02 · Брошенная корзина</h3>
+          <p>Письмо напоминает о сохранённом расчёте и актуальных предложениях ОСАГО. Кнопка «Продолжить оформление» ведёт в сохранённую заявку, где клиент продолжает расчёт или выбирает предложение.</p>
+          <p class="detail-note">Отправляется, если ОСАГО не оплачено, предложения актуальны и нет действующей ссылки на оплату. После оплаты, появления ссылки, отмены заявки или потери актуальности письмо не отправляется.</p>
+        </article>
+        <article class="scenario-detail">
+          <h3>03 · Ссылка на оплату</h3>
+          <p>Письмо показывает выбранное предложение и сумму к оплате. Кнопка «Оплатить ОСАГО» ведёт непосредственно по действующей платёжной ссылке выбранного предложения.</p>
+          <p class="detail-note">Отправляется после получения ссылки, только если полис ещё не оплачен и ссылка не истекла. Ту же ссылку повторно не отправляем; замена или истечение ссылки прекращает действие прежней кнопки.</p>
+        </article>
+        <article class="scenario-detail">
+          <h3>04 · Мини-КАСКО</h3>
+          <p>Письмо содержит актуальное рассчитанное предложение: продукт, страховщика, цену и основные условия. Кнопка «Посмотреть предложение» ведёт в заявку КАСКО после ОСАГО, где клиент выбирает вариант и получает ссылку на оплату; сама кнопка не является прямой оплатой.</p>
+          <p><strong>Кандидаты по текущему справочнику онлайн-продуктов:</strong></p>
+          <ul>
+            <li>ВСК — «КАСКО Компакт Минимум», «КАСКО Компакт Фикс»;</li>
+            <li>АльфаСтрахование — «КАСКО за 3»;</li>
+            <li>Т-Страхование — «КАСКО Драйв Оптимум», «КАСКО Драйв Угон», «КАСКО Драйв Угон+».</li>
+          </ul>
+          <p class="detail-note">Список проверен по включённым онлайн-продуктам 16 сентября 2026 года, но отбор именно для рассылки ещё не утверждён. В письмо попадут только предложения, доступные конкретному клиенту при свежем расчёте; нужны маркетинговое согласие и отсутствие покупки мини-КАСКО. Количество предложений в письме также предстоит выбрать.</p>
+        </article>
+        <article class="scenario-detail">
+          <h3>05 · Продление ОСАГО</h3>
+          <p>Письмо показывает дату окончания текущего полиса и актуальное предложение на следующий период от той же страховой компании. Кнопка «Продлить ОСАГО» ведёт в подготовленную заявку на продление с сохранёнными данными и этим предложением.</p>
+          <p class="detail-note">Отправляется при маркетинговом согласии, если новый полис ещё не куплен и предложение актуально. После продления или исчезновения предложения следующие письма не отправляются.</p>
+        </article>
       </div>
     </section>
 
