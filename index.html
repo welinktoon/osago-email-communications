@@ -85,6 +85,22 @@
     .scenario-branding-note { margin: 16px 0 0; padding: 16px 20px; border-left: 4px solid var(--blue); border-radius: 10px; background: var(--blue-soft); color: #30445f; font-size: 14px; }
 
     .section-intro { max-width: 760px; margin: -10px 0 25px; color: var(--muted); }
+    .mockup-mode-switch {
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 5px;
+      width: min(100%, 660px);
+      margin: 0 0 28px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #eef2f7;
+    }
+    .mockup-mode-button { min-height: 46px; padding: 11px 16px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: 750 13px/1.25 Montserrat, Arial, sans-serif; cursor: pointer; }
+    .mockup-mode-button:hover { color: var(--ink); }
+    .mockup-mode-button:focus-visible { outline: 3px solid rgba(20,99,255,.22); outline-offset: 2px; }
+    .mockup-mode-button.is-active { background: #fff; color: var(--blue-dark); box-shadow: 0 3px 12px rgba(31,52,81,.12); }
+    .mockup-panel[hidden] { display: none; }
     .preview-shell {
       display: grid;
       grid-template-columns: 270px minmax(0, 1fr);
@@ -207,6 +223,10 @@
     }
 
     @media (max-width: 620px) {
+      .mockup-mode-switch { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
       .topbar-inner, main { padding-left: 18px; padding-right: 18px; }
       .meta { display: none; }
       .hero { padding-top: 44px; }
@@ -307,7 +327,12 @@
       <p class="scenario-branding-note"><strong>Общее для всех пяти писем:</strong> оформление, отправитель и логотип берутся из действующих настроек API-ключа партнёра. В текущей схеме имя и адрес отправителя задаются на API-ключе, а цвет и логотип хранятся в настройках партнёра. Перед отправкой нужно использовать настройки того API-ключа, по которому создана заявка.</p>
     </section>
 
-    <section aria-labelledby="examples-title">
+    <div class="mockup-mode-switch" role="group" aria-label="Режим просмотра макетов писем">
+      <button class="mockup-mode-button is-active" type="button" data-mockup-mode="full" aria-pressed="true">Полноценные макеты писем</button>
+      <button class="mockup-mode-button" type="button" data-mockup-mode="anonymous" aria-pressed="false">Обезличенные макеты писем</button>
+    </div>
+
+    <section class="mockup-panel" data-mockup-panel="full" aria-labelledby="examples-title">
       <h2 id="examples-title">Полноценные макеты писем</h2>
       <p class="section-intro">Для каждого сценария можно переключить два способа реализации: визуальный дизайн с отдельными модулями и простой одноколоночный шаблон. Мини‑КАСКО — один сценарий; для волн после покупки ОСАГО пока используется одинаковое письмо с актуальными рассчитанными предложениями.</p>
 
@@ -338,9 +363,9 @@
       <p class="preview-footnote"><strong>По реализации:</strong> первый вариант потребует больше работы с вёрсткой и проверкой отображения. Второй можно собрать как простой email-шаблон на стороне отправки. Все данные в макетах показаны только для иллюстрации структуры: перед отправкой backend подставляет актуальные значения конкретной заявки, а при отсутствии обязательной ссылки или предложения письмо не отправляется.</p>
     </section>
 
-    <section class="partner-section" aria-labelledby="partner-examples-title">
+    <section class="partner-section mockup-panel" data-mockup-panel="anonymous" aria-labelledby="partner-examples-title" hidden>
       <h2 id="partner-examples-title">Обезличенные макеты писем</h2>
-      <p class="section-intro">Тот же набор из пяти писем с оформлением партнёра. Здесь можно примерить основной цвет — это только локальный просмотр, настройки партнёра не меняются.</p>
+      <p class="section-intro">Тот же набор из пяти писем с оформлением партнёра. В Welcome при наличии маркетингового согласия показаны плашка о доступных вариантах дополнительной защиты и кнопка перехода. Здесь можно примерить основной цвет — это только локальный просмотр, настройки партнёра не меняются.</p>
 
       <div class="brand-controls" aria-label="Настройка внешнего вида обезличенных писем">
         <label for="brandColor">Основной цвет <input id="brandColor" type="color" value="#4a6f95"></label>
@@ -349,7 +374,7 @@
       <div class="preview-shell" data-preview-component>
         <nav class="preview-nav" aria-label="Выбор обезличенного макета письма" role="tablist" aria-orientation="vertical">
           <div class="preview-nav-title">Выберите письмо</div>
-          <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="partnerEmailPreview" data-rich-src="email-previews/01-welcome.html?theme=partner" data-simple-src="email-previews/01-welcome-simple.html?theme=partner" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы."><span class="tab-number">01</span><span>Welcome / полис</span></button>
+          <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="partnerEmailPreview" data-rich-src="email-previews/01-welcome.html?theme=partner&amp;marketing=1" data-simple-src="email-previews/01-welcome-simple.html?theme=partner&amp;marketing=1" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы. Доступны варианты дополнительной защиты."><span class="tab-number">01</span><span>Welcome / полис</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/02-abandoned-cart.html?theme=partner" data-simple-src="email-previews/02-abandoned-cart-simple.html?theme=partner" data-title="Брошенная корзина" data-subject="Расчёт ОСАГО сохранён" data-snippet="Данные сохранены — продолжите оформление."><span class="tab-number">02</span><span>Брошенная корзина</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/03-payment-link.html?theme=partner" data-simple-src="email-previews/03-payment-link-simple.html?theme=partner" data-title="Ссылка на оплату" data-subject="Завершите оплату ОСАГО" data-snippet="Страховая компания подтвердила предложение."><span class="tab-number">03</span><span>Ссылка на оплату</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/05-mini-kasko-compare.html?theme=partner" data-simple-src="email-previews/05-mini-kasko-compare-simple.html?theme=partner" data-title="Мини-КАСКО" data-subject="Предложения мини-КАСКО" data-snippet="Для автомобиля доступны рассчитанные предложения."><span class="tab-number">04</span><span>Мини-КАСКО</span></button>
@@ -364,10 +389,10 @@
             </div>
           </div>
           <div class="inbox-preview" aria-label="Предпросмотр темы письма во входящих">
-            <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы.</span></div></div>
+            <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы. Доступны варианты дополнительной защиты.</span></div></div>
             <time class="inbox-time">сейчас</time>
           </div>
-          <iframe class="email-frame" id="partnerEmailPreview" name="partnerEmailPreview" src="email-previews/01-welcome.html?theme=partner" title="Обезличенный макет письма: Welcome / полис" loading="lazy"></iframe>
+          <iframe class="email-frame" id="partnerEmailPreview" name="partnerEmailPreview" src="email-previews/01-welcome.html?theme=partner&amp;marketing=1" title="Обезличенный макет письма: Welcome / полис" loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -434,6 +459,24 @@
     }
 
     document.getElementById('brandColor').addEventListener('input', applyPartnerBranding);
+
+    const mockupModeButtons = Array.from(document.querySelectorAll('[data-mockup-mode]'));
+    const mockupPanels = Array.from(document.querySelectorAll('[data-mockup-panel]'));
+
+    mockupModeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.mockupMode;
+        mockupModeButtons.forEach(item => {
+          const active = item === button;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        mockupPanels.forEach(panel => {
+          panel.hidden = panel.dataset.mockupPanel !== mode;
+        });
+        if (mode === 'anonymous') applyPartnerBranding();
+      });
+    });
 
     function initPreview(shell) {
       const tabs = Array.from(shell.querySelectorAll('.preview-tab'));
