@@ -334,12 +334,13 @@
 
     <section class="mockup-panel" data-mockup-panel="full" aria-labelledby="examples-title">
       <h2 id="examples-title">Полноценные макеты писем</h2>
-      <p class="section-intro">Для каждого сценария можно переключить два способа реализации: визуальный дизайн с отдельными модулями и простой одноколоночный шаблон. Мини‑КАСКО — один сценарий; для волн после покупки ОСАГО пока используется одинаковое письмо с актуальными рассчитанными предложениями.</p>
+      <p class="section-intro">Для каждого сценария можно переключить два способа реализации: визуальный дизайн с отдельными модулями и простой одноколоночный шаблон. Welcome с маркетинговым блоком вынесен в отдельный пункт сразу под обычным Welcome.</p>
 
       <div class="preview-shell" data-preview-component>
         <nav class="preview-nav" aria-label="Выбор макета письма" role="tablist" aria-orientation="vertical">
           <div class="preview-nav-title">Выберите письмо</div>
           <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="emailPreview" data-rich-src="email-previews/01-welcome.html" data-simple-src="email-previews/01-welcome-simple.html" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы."><span class="tab-number">01</span><span>Welcome / полис</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/01-welcome.html?marketing=1" data-simple-src="email-previews/01-welcome-simple.html?marketing=1" data-title="Welcome / полис маркетинг" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы. Доступны варианты дополнительной защиты."><span class="tab-number">01+</span><span>Welcome / полис маркетинг</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/02-abandoned-cart.html" data-simple-src="email-previews/02-abandoned-cart-simple.html" data-title="Брошенная корзина" data-subject="Расчёт ОСАГО сохранён" data-snippet="Данные сохранены — продолжите оформление."><span class="tab-number">02</span><span>Брошенная корзина</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/03-payment-link.html" data-simple-src="email-previews/03-payment-link-simple.html" data-title="Ссылка на оплату" data-subject="Завершите оплату ОСАГО" data-snippet="Страховая компания подтвердила предложение."><span class="tab-number">03</span><span>Ссылка на оплату</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="emailPreview" data-rich-src="email-previews/05-mini-kasko-compare.html" data-simple-src="email-previews/05-mini-kasko-compare-simple.html" data-title="Мини-КАСКО" data-subject="Предложения мини-КАСКО" data-snippet="Для автомобиля доступны рассчитанные предложения."><span class="tab-number">04</span><span>Мини-КАСКО</span></button>
@@ -365,7 +366,7 @@
 
     <section class="partner-section mockup-panel" data-mockup-panel="anonymous" aria-labelledby="partner-examples-title" hidden>
       <h2 id="partner-examples-title">Обезличенные макеты писем</h2>
-      <p class="section-intro">Тот же набор из пяти писем с оформлением партнёра. В Welcome при наличии маркетингового согласия показаны плашка о доступных вариантах дополнительной защиты и кнопка перехода. Здесь можно примерить основной цвет — это только локальный просмотр, настройки партнёра не меняются.</p>
+      <p class="section-intro">Тот же набор писем с оформлением партнёра. Обычный Welcome остаётся сервисным, а версия с маркетинговым блоком вынесена в отдельный пункт сразу под ним. Здесь можно примерить основной цвет — это только локальный просмотр, настройки партнёра не меняются.</p>
 
       <div class="brand-controls" aria-label="Настройка внешнего вида обезличенных писем">
         <label for="brandColor">Основной цвет <input id="brandColor" type="color" value="#4a6f95"></label>
@@ -374,7 +375,8 @@
       <div class="preview-shell" data-preview-component>
         <nav class="preview-nav" aria-label="Выбор обезличенного макета письма" role="tablist" aria-orientation="vertical">
           <div class="preview-nav-title">Выберите письмо</div>
-          <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="partnerEmailPreview" data-rich-src="email-previews/01-welcome.html?theme=partner&amp;marketing=1" data-simple-src="email-previews/01-welcome-simple.html?theme=partner&amp;marketing=1" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы. Доступны варианты дополнительной защиты."><span class="tab-number">01</span><span>Welcome / полис</span></button>
+          <button class="preview-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="partnerEmailPreview" data-rich-src="email-previews/01-welcome.html?theme=partner" data-simple-src="email-previews/01-welcome-simple.html?theme=partner" data-title="Welcome / полис" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы."><span class="tab-number">01</span><span>Welcome / полис</span></button>
+          <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/01-welcome.html?theme=partner&amp;marketing=1" data-simple-src="email-previews/01-welcome-simple.html?theme=partner&amp;marketing=1" data-title="Welcome / полис маркетинг" data-subject="Полис ОСАГО оформлен" data-snippet="Документы полиса готовы. Доступны варианты дополнительной защиты."><span class="tab-number">01+</span><span>Welcome / полис маркетинг</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/02-abandoned-cart.html?theme=partner" data-simple-src="email-previews/02-abandoned-cart-simple.html?theme=partner" data-title="Брошенная корзина" data-subject="Расчёт ОСАГО сохранён" data-snippet="Данные сохранены — продолжите оформление."><span class="tab-number">02</span><span>Брошенная корзина</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/03-payment-link.html?theme=partner" data-simple-src="email-previews/03-payment-link-simple.html?theme=partner" data-title="Ссылка на оплату" data-subject="Завершите оплату ОСАГО" data-snippet="Страховая компания подтвердила предложение."><span class="tab-number">03</span><span>Ссылка на оплату</span></button>
           <button class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="partnerEmailPreview" data-rich-src="email-previews/05-mini-kasko-compare.html?theme=partner" data-simple-src="email-previews/05-mini-kasko-compare-simple.html?theme=partner" data-title="Мини-КАСКО" data-subject="Предложения мини-КАСКО" data-snippet="Для автомобиля доступны рассчитанные предложения."><span class="tab-number">04</span><span>Мини-КАСКО</span></button>
@@ -389,10 +391,10 @@
             </div>
           </div>
           <div class="inbox-preview" aria-label="Предпросмотр темы письма во входящих">
-            <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы. Доступны варианты дополнительной защиты.</span></div></div>
+            <div class="inbox-copy"><span class="inbox-label">Тема письма во входящих</span><div class="inbox-line"><strong class="inbox-subject">Полис ОСАГО оформлен</strong><span class="inbox-snippet"> — Документы полиса готовы.</span></div></div>
             <time class="inbox-time">сейчас</time>
           </div>
-          <iframe class="email-frame" id="partnerEmailPreview" name="partnerEmailPreview" src="email-previews/01-welcome.html?theme=partner&amp;marketing=1" title="Обезличенный макет письма: Welcome / полис" loading="lazy"></iframe>
+          <iframe class="email-frame" id="partnerEmailPreview" name="partnerEmailPreview" src="email-previews/01-welcome.html?theme=partner" title="Обезличенный макет письма: Welcome / полис" loading="lazy"></iframe>
         </div>
       </div>
     </section>
